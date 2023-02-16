@@ -1,6 +1,6 @@
 import React from 'react';
 
-type PizzaBlockPropsType = {
+export type PizzaBlockType = {
   id: number;
   imageUrl: string;
   name: string;
@@ -11,7 +11,7 @@ type PizzaBlockPropsType = {
   rating: number;
 };
 
-export const PizzaBlock = ({ name, price, imageUrl, sizes, types }: PizzaBlockPropsType) => {
+export const PizzaBlock = ({ name, price, imageUrl, sizes, types }: PizzaBlockType) => {
   const [activeSize, setActiveSize] = React.useState(0);
   const [activeType, setActiveType] = React.useState(0);
 
