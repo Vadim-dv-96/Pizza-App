@@ -1,13 +1,29 @@
 import React from 'react';
 
-export const Sort = () => {
+export type ValueSortType = {
+  name: string;
+  sortProperty: string;
+};
+
+type SortPropsType = {
+  value: ValueSortType;
+  onClickSort: (sortTypeObj: ValueSortType) => void;
+};
+
+export const Sort = ({ value, onClickSort }: SortPropsType) => {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
 
-  const typesSort = ['популярности', 'цене', 'алфавиту'];
+  const typesSort = [
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'популярности (ASC)', sortProperty: '-rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'name' },
+    { name: 'алфавиту (ASC)', sortProperty: '-name' },
+  ];
 
-  const onClickListItem = (index: number) => {
-    setSelected(index);
+  const onClickListItem = (sortTypeObj: ValueSortType) => {
+    onClickSort(sortTypeObj);
     setOpen(false);
   };
 
@@ -21,14 +37,18 @@ export const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{typesSort[selected]}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {typesSort.map((typeSort, i) => (
-              <li key={i} onClick={() => onClickListItem(i)} className={selected === i ? 'active' : ''}>
-                {typeSort}
+            {typesSort.map((typeSortObj, i) => (
+              <li
+                key={i}
+                onClick={() => onClickListItem(typeSortObj)}
+                className={value.name === typeSortObj.name ? 'active' : ''}
+              >
+                {typeSortObj.name}
               </li>
             ))}
           </ul>
