@@ -1,29 +1,29 @@
 import React from 'react';
+import { useAppDispatch, useAppSelector } from '../redux/redux-hooks/redux-hooks';
+import { setSort } from '../redux/slices/filterSlice';
 
 export type ValueSortType = {
   name: string;
   sortProperty: string;
 };
 
-type SortPropsType = {
-  value: ValueSortType;
-  onClickSort: (sortTypeObj: ValueSortType) => void;
-};
+const typesSort = [
+  { name: 'популярности (DESC)', sortProperty: 'rating' },
+  { name: 'популярности (ASC)', sortProperty: '-rating' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'цене (ASC)', sortProperty: '-price' },
+  { name: 'алфавиту (DESC)', sortProperty: 'name' },
+  { name: 'алфавиту (ASC)', sortProperty: '-name' },
+];
 
-export const Sort = ({ value, onClickSort }: SortPropsType) => {
+export const Sort = () => {
+  const dispatch = useAppDispatch();
+  const sort = useAppSelector((state) => state.filter.sort);
+
   const [open, setOpen] = React.useState(false);
 
-  const typesSort = [
-    { name: 'популярности (DESC)', sortProperty: 'rating' },
-    { name: 'популярности (ASC)', sortProperty: '-rating' },
-    { name: 'цене (DESC)', sortProperty: 'price' },
-    { name: 'цене (ASC)', sortProperty: '-price' },
-    { name: 'алфавиту (DESC)', sortProperty: 'name' },
-    { name: 'алфавиту (ASC)', sortProperty: '-name' },
-  ];
-
-  const onClickListItem = (sortTypeObj: ValueSortType) => {
-    onClickSort(sortTypeObj);
+  const onClickListItem = (sortType: ValueSortType) => {
+    dispatch(setSort({ typeSort: sortType }));
     setOpen(false);
   };
 
@@ -37,18 +37,18 @@ export const Sort = ({ value, onClickSort }: SortPropsType) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {typesSort.map((typeSortObj, i) => (
+            {typesSort.map((typeSort, i) => (
               <li
                 key={i}
-                onClick={() => onClickListItem(typeSortObj)}
-                className={value.name === typeSortObj.name ? 'active' : ''}
+                onClick={() => onClickListItem(typeSort)}
+                className={sort.name === typeSort.name ? 'active' : ''}
               >
-                {typeSortObj.name}
+                {typeSort.name}
               </li>
             ))}
           </ul>

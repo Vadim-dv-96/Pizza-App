@@ -1,5 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import pizzaLogo from '../assets/img/pizza-logo.svg';
+import { Search } from './Search/Search';
+
+// export type HeaderAndSearchPropsType = {
+//   searchValue: string;
+//   setSearchValue: Dispatch<SetStateAction<string>>;
+// };
 
 export const Header = () => {
   return (
@@ -14,6 +20,7 @@ export const Header = () => {
             </div>
           </div>
         </NavLink>
+        <Search />
         <div className="header__cart">
           <NavLink to={'/cart'} className="button button--cart">
             <span>520 ₴</span>
