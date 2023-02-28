@@ -7,7 +7,7 @@ export type ValueSortType = {
   sortProperty: string;
 };
 
-const typesSort = [
+export const typesSort = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
   { name: 'популярности (ASC)', sortProperty: '-rating' },
   { name: 'цене (DESC)', sortProperty: 'price' },

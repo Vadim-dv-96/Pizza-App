@@ -2,11 +2,6 @@ import { NavLink } from 'react-router-dom';
 import pizzaLogo from '../assets/img/pizza-logo.svg';
 import { Search } from './Search/Search';
 
-// export type HeaderAndSearchPropsType = {
-//   searchValue: string;
-//   setSearchValue: Dispatch<SetStateAction<string>>;
-// };
-
 export const Header = () => {
   return (
     <div className="header">
