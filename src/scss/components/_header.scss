@@ -24,6 +24,12 @@
     }
   }
 
+  @media (max-width: 866px) {
+    &__logo {
+      margin-bottom: 10px;
+    }
+  }
+
   &__logo {
     display: flex;
 
