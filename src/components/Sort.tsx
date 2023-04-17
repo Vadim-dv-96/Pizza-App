@@ -22,13 +22,27 @@ export const Sort = () => {
 
   const [open, setOpen] = React.useState(false);
 
+  const sortRef = React.useRef<HTMLDivElement>(null);
+
   const onClickListItem = (sortType: ValueSortType) => {
     dispatch(setSort({ typeSort: sortType }));
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      console.log('click event');
+      const path = event.composedPath();
+      if (!path.includes(sortRef.current as EventTarget)) {
+        setOpen(false);
+      }
+    };
+    document.body.addEventListener('click', handleClickOutside);
+    return () => document.body.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
